@@ -5,6 +5,7 @@ from pyspark.sql import SparkSession
 from pyspark.sql.functions import from_json, col
 from pyspark.sql.types import StructType, StructField, StringType
 
+#Create keyspace here
 def create_keyspace(session):
     session.execute("""
         CREATE KEYSPACE IF NOT EXISTS spark_streams
@@ -13,6 +14,7 @@ def create_keyspace(session):
     
     print("Keyspace created successufully")
 
+#Create table here
 def create_table(session):
     session.execute("""
     CREATE TABLE IF NOT EXISTS spark_streams.created_users (
@@ -31,7 +33,7 @@ def create_table(session):
 
     print("Table created successfully!")
 
-
+#Insertion here
 def insert_data(session, **kwargs):
     print("inserting data...")
 
@@ -60,7 +62,7 @@ def insert_data(session, **kwargs):
     except Exception as e:
         logging.error(f'could not insert data due to {e}')
 
-
+#Creating spark connection
 def create_spark_connection():
     s_conn = None
 
@@ -95,7 +97,7 @@ def connect_to_kafka(spark_conn):
 
     return spark_df
 
-
+#Creating cassandra connection
 def create_cassandra_connection():
     try:
         # connecting to the cassandra cluster
